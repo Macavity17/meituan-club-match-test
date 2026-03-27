@@ -28,3 +28,7 @@ def render():
                 "time_commit": time_commit
             }
             navigate_to('swipe_cards')
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    if st.button("⏭️ 暂时不想填，先去广场随便逛逛", use_container_width=True):
+        navigate_to('home_dashboard')

@@ -5,6 +5,20 @@ from core.recsys_engine import get_dynamic_tag_pairs, get_top_recommended_club
 def render():
     st.title("🎴 发现你的热爱")
     
+    # ==========================================
+    # 【新增代码】顶部全局导航栏
+    # ==========================================
+    col_nav1, col_nav2, col_nav3 = st.columns(3)
+    with col_nav1:
+        if st.button("🏠 发现主页", use_container_width=True):
+            navigate_to('home_dashboard')
+    with col_nav2:
+        st.button("🎴 沉浸式 AI 匹配", use_container_width=True, disabled=True)
+    with col_nav3:
+        if st.button("👤 我的与投递", use_container_width=True):
+            navigate_to('profile')
+    st.markdown("---")
+
     # 1. 动态获取拔河卡片，并将其缓存进状态机，防止页面刷新时标签乱变
     if 'dynamic_pairs' not in st.session_state:
         st.session_state.dynamic_pairs = get_dynamic_tag_pairs(num_pairs=4)
