@@ -71,7 +71,10 @@ def render():
         st.subheader("🎯 投递与操作")
         
         if st.button("🚀 立即投递", type="primary", use_container_width=True):
-            st.success("✅ 简历已一键发送至社团招新后台！")
+            if 'applied_clubs' not in st.session_state:
+                st.session_state.applied_clubs = []
+            st.session_state.applied_clubs.append(club_id)
+            st.success("✅ 简历已一键发送至社团招新后台！(已同步至我的主页)")
             
         if st.button("⭐ 收藏该社团", use_container_width=True):
             st.toast("已加入收藏夹！")
