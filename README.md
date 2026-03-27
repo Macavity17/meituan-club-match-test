@@ -1,8 +1,7 @@
 # 🎴 翻得 (Find) 
 > **翻得，find my club！**
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/) 
-*(请将此处的链接替换为你真实的 Streamlit 部署链接)*
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://find-my-club-by-paxon.streamlit.app/) 
 
 ## 📖 项目背景
 本项目为 **美团 AI 产品经理 (AI PM)** 岗位限时考核作品。
@@ -78,7 +77,7 @@ meituan-club-match/
 **本地运行测试：**
 ```bash
 # 1. 克隆仓库
-git clone [https://github.com/your-username/meituan-club-match.git](https://github.com/your-username/meituan-club-match.git)
+git clone [https://github.com/Macavity17/meituan-club-match.git](https://github.com/Macavity17/meituan-club-match.git)
 cd meituan-club-match
 
 # 2. 安装依赖
