@@ -22,8 +22,8 @@ if st.session_state.current_page == 'onboarding':
 # 后续开发完成后，按此结构解开注释即可：
 elif st.session_state.current_page == 'swipe_cards':
     v2_swipe_cards.render()
-# elif st.session_state.current_page == 'club_detail':
-#     v3_club_detail.render()
+elif st.session_state.current_page == 'club_detail':
+    v3_club_detail.render()
 # elif st.session_state.current_page == 'home_dashboard':
 #     v4_home_dashboard.render()
 # elif st.session_state.current_page == 'profile':
