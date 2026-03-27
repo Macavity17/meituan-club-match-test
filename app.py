@@ -1,6 +1,8 @@
 import streamlit as st
 from core.state_manager import init_session_state
 from views import v1_onboarding
+from views import v2_swipe_cards
+from views import v3_club_detail
 
 # 注意：生产环境中，其他视图写好后在这里 import 即可
 # from views import v2_swipe_cards, v3_club_detail, v4_home_dashboard, v5_profile

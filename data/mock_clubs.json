@@ -1,0 +1,125 @@
+{
+  "clubs": [
+    {
+      "club_id": "c_001",
+      "name": "AI与数据创新实验室",
+      "slogan": "用数据驱动决策，以 AI 赋能未来",
+      "logo_url": "https://mock-image-url.com/ai_lab.png",
+      "core_keywords_pair": {
+        "left": "硬核技术研究",
+        "right": "商业落地探索"
+      },
+      "tags": ["数据科学", "极客", "创业孵化", "高能耗"],
+      "basic_info": {
+        "established_year": 2019,
+        "member_count": 85,
+        "activity_frequency": "每周2次 (周三晚、周日下午)"
+      },
+      "architecture": [
+        {"department": "算法研究部", "role": "探索前沿模型与打 Kaggle 比赛"},
+        {"department": "产品工程部", "role": "将 AI 算法包装为可用产品"},
+        {"department": "商业运营部", "role": "负责拉赞助与校外企业对接"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-25",
+          "title": "🎉 祝贺我社成员在全国大学生创新创业大赛斩获一等奖！",
+          "content": "本届参赛项目聚焦 AI 智能硬件，团队现面向全校招募新一期大创项目产品经理与数据分析师。"
+        },
+        {
+          "date": "2026-03-20",
+          "title": "📢 讲座预告：生成式大模型在工业界的应用",
+          "content": "特邀业界资深专家来校分享，地点：宣怀楼 204，欢迎旁听。"
+        }
+      ],
+      "detailed_description": "我们不仅是一个学术讨论组，更是一个微型的科技创业孵化器。在这里，你可以接触到最前沿的 AI 技术，也可以找到志同道合的伙伴一起将想法变成现实。无论你是想深耕底层算法，还是想做懂技术的 AI PM，这里都有你的舞台。"
+    },
+    {
+      "club_id": "c_002",
+      "name": "散打与搏击协会",
+      "slogan": "强健体魄，磨砺意志",
+      "logo_url": "https://mock-image-url.com/sanda.png",
+      "core_keywords_pair": {
+        "left": "高强度实战竞技",
+        "right": "基础体能与塑形"
+      },
+      "tags": ["武术", "力量训练", "高耗能", "纪律性"],
+      "basic_info": {
+        "established_year": 2012,
+        "member_count": 120,
+        "activity_frequency": "每周3次 (晚训)"
+      },
+      "architecture": [
+        {"department": "竞技队", "role": "代表学校参加省级武术与散打比赛"},
+        {"department": "大众训练营", "role": "面向零基础同学的体能提升与防身术教学"},
+        {"department": "后勤装备部", "role": "管理护具、沙袋及场馆协调"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-26",
+          "title": "🔥 春季新生防身术特训营开营啦！",
+          "content": "不需要任何基础，学长学姐手把手教你正确的发力技巧和躲闪意识。"
+        }
+      ],
+      "detailed_description": "告别亚健康，从踏入训练垫的第一步开始。我们提供专业的散打、拳击训练指导。无论你是想追求极致的竞技对抗，还是单纯想通过挥洒汗水来释放学业压力、保持好身材，这里都是最纯粹的挥汗之地。"
+    },
+    {
+      "club_id": "c_003",
+      "name": "科技公益青年创客空间",
+      "slogan": "用科技的微光，照亮社会的角落",
+      "logo_url": "https://mock-image-url.com/tech_good.png",
+      "core_keywords_pair": {
+        "left": "社会价值与共情",
+        "right": "底层技术与效率"
+      },
+      "tags": ["公益", "区块链", "系统设计", "低耗能"],
+      "basic_info": {
+        "established_year": 2021,
+        "member_count": 60,
+        "activity_frequency": "每周1次项目同步会"
+      },
+      "architecture": [
+        {"department": "项目调研组", "role": "深入社区与公益组织发掘技术痛点"},
+        {"department": "系统研发组", "role": "开发诸如多智能体协作、区块链信任机制等公益系统"},
+        {"department": "公关宣传组", "role": "负责项目成果展示与招募志愿者"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-22",
+          "title": "🤝 寻人启事：急需懂机制设计的同学加入新项目",
+          "content": "我们正在筹备一个关于提升公益组织信任度的模拟实验项目，急需对仿真和机制设计感兴趣的同学！"
+        }
+      ],
+      "detailed_description": "我们相信技术不仅是为了商业变现，更是为了解决真实的社会问题。我们致力于将前沿技术（如生成式 AI、区块链等）引入传统的公益慈善领域，打破信任壁垒，让每一份善意都能被精准传递。"
+    },
+    {
+      "club_id": "c_004",
+      "name": "互动娱乐与游戏研究社",
+      "slogan": "第九艺术的解构与重塑",
+      "logo_url": "https://mock-image-url.com/gaming.png",
+      "core_keywords_pair": {
+        "left": "沉浸式剧情体验",
+        "right": "硬核机制与对抗"
+      },
+      "tags": ["游戏策划", "二次元", "脑洞大开", "休闲"],
+      "basic_info": {
+        "established_year": 2015,
+        "member_count": 200,
+        "activity_frequency": "不定期线上联机，每月1次线下桌游/GameJam"
+      },
+      "architecture": [
+        {"department": "独立游戏开发组", "role": "策划、美术、程序的孵化地"},
+        {"department": "剧情与叙事研究组", "role": "深度解析 RPG/推理类游戏的世界观与逻辑"},
+        {"department": "电竞活动部", "role": "组织校内各类对抗性游戏赛事"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-27",
+          "title": "🎮 周末线下局：推理本与主机游戏之夜",
+          "content": "带上你的手柄！本周五晚有《弹丸论破》系列的复盘讨论，以及大空间 VR 体验。"
+        }
+      ],
+      "detailed_description": "无论是深邃庞大的奇幻开放世界，还是逻辑缜密的推理视觉小说，这里聚集了一群热爱“第九艺术”的玩家和创作者。我们不只是玩游戏，我们更热衷于拆解游戏机制，甚至亲自动手创造属于我们的世界。"
+    }
+  ]
+}
