@@ -2,6 +2,7 @@ import json
 import streamlit as st
 import os
 from core.state_manager import navigate_to
+from core.recsys_engine import update_global_matrix_with_feedback  # 引入飞轮更新接口
 
 def load_club_data(club_id):
     """从本地读取 JSON 模拟数据库"""
@@ -31,7 +32,7 @@ def render():
     # 顶部头图与 Slogan
     st.title(f"🏆 {club_info['name']}")
     st.markdown(f"*{club_info['slogan']}*")
-    st.caption(f"标签: {' · '.join(club_info['tags'])}")
+    st.caption(f"核心标签: {' · '.join(club_info['tags'])}")
     st.markdown("---")
 
     # 左右分栏设计：左侧详细信息，右侧 AI 助手
@@ -54,13 +55,13 @@ def render():
         st.subheader("🤖 AI 匹配分析")
         st.info("💡 **分析助手正在运行...**")
         
-        # 提取用户的基础画像用于假 LLM 的 Context
+        # 提取用户的基础画像用于假 LLM 的 Context (后续将接入 core/mock_llm.py)
         user_mbti = st.session_state.user_profile.get('mbti', '未知')
         user_time = st.session_state.user_profile.get('time_commit', '未知')
         
         with st.chat_message("assistant"):
             st.write(f"结合你是 **{user_mbti}** 人格，并且每周有 **{user_time}** 的空闲时间，我强烈推荐你关注他们的【{club_info['architecture'][0]['department']}】。")
-            st.write("根据你刚才在拔河卡片中的偏好，这个社团的氛围非常适合你目前的诉求！")
+            st.write("根据你刚才在拔河卡片中的偏向，这个社团的氛围非常适合你目前的诉求！")
 
         st.markdown("---")
         st.subheader("🎯 投递与操作")
@@ -73,7 +74,9 @@ def render():
 
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # 强制打分拦截逻辑
+        # ==========================================
+        # 强制打分拦截与飞轮反馈链路
+        # ==========================================
         if 'show_rating' not in st.session_state:
             st.session_state.show_rating = False
 
@@ -82,11 +85,19 @@ def render():
                 st.session_state.show_rating = True
                 st.rerun()
         else:
-            st.warning("👇 请为本次匹配的精准度打分，这将帮助优化你的后续推荐：")
+            st.warning("👇 请为本次匹配的精准度打分，这将帮助 AI 优化后续推荐：")
             match_score = st.slider("1分(完全不搭) - 5分(完美契合)", 1, 5, 3)
             
             if st.button("提交反馈并返回", type="primary", use_container_width=True):
-                # 记录打分数据（供后续矩阵更新使用）
+                # 1. 触发推荐引擎的全局统矩阵更新（数据飞轮闭环）
+                update_global_matrix_with_feedback(
+                    club_id=club_id,
+                    match_score=match_score,
+                    user_profile=st.session_state.user_profile,
+                    swipe_history=st.session_state.swipe_history
+                )
+                
+                # 2. 仅为 Demo 演示记录，将打分压入本地状态
                 if 'match_feedbacks' not in st.session_state:
                     st.session_state.match_feedbacks = []
                 st.session_state.match_feedbacks.append({
@@ -94,7 +105,7 @@ def render():
                     "score": match_score
                 })
                 
-                # 清除当前状态并返回翻卡页
+                # 3. 清除当前视图状态并返回拔河翻卡页
                 st.session_state.show_rating = False
                 st.session_state.current_club_view = None
                 navigate_to('swipe_cards')
