@@ -3,6 +3,7 @@ from core.state_manager import init_session_state
 from views import v1_onboarding
 from views import v2_swipe_cards
 from views import v3_club_detail
+from views import v4_home_dashboard
 
 # 注意：生产环境中，其他视图写好后在这里 import 即可
 # from views import v2_swipe_cards, v3_club_detail, v4_home_dashboard, v5_profile
@@ -26,7 +27,7 @@ elif st.session_state.current_page == 'swipe_cards':
     v2_swipe_cards.render()
 elif st.session_state.current_page == 'club_detail':
     v3_club_detail.render()
-# elif st.session_state.current_page == 'home_dashboard':
-#     v4_home_dashboard.render()
+elif st.session_state.current_page == 'home_dashboard':
+    v4_home_dashboard.render()
 # elif st.session_state.current_page == 'profile':
 #     v5_profile.render()
