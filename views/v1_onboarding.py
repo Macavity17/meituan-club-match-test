@@ -27,6 +27,4 @@ def render():
                 "campus": campus,
                 "time_commit": time_commit
             }
-            # 触发路由跳转 (由于 v2 还没写，这里暂时只让它显示成功，下一步我们补齐 v2)
-            st.success("数据已保存！即将打通 v2_swipe_cards 路由...")
-            # navigate_to('swipe_cards')
+            navigate_to('swipe_cards')
