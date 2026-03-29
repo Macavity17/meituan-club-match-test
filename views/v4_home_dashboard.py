@@ -78,6 +78,7 @@ def render():
                     st.write(club['slogan'])
                     if st.button(f"查看详情", key=f"btn_{club['club_id']}", use_container_width=True):
                         st.session_state.current_club_view = club['club_id']
+                        st.session_state.from_ai_recommendation = False
                         navigate_to('club_detail')
 
     # --- Tab 2: 新鲜事瀑布流 ---
@@ -95,4 +96,5 @@ def render():
                     # 快捷跳转至发布该新闻的社团
                     if st.button("去社团看看", key=f"news_btn_{news['title']}_{news['club_id']}"):
                          st.session_state.current_club_view = news['club_id']
+                         st.session_state.from_ai_recommendation = False
                          navigate_to('club_detail')

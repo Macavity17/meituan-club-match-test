@@ -74,6 +74,7 @@ def render():
             )
             
         st.session_state.current_club_view = best_club_id
+        st.session_state.from_ai_recommendation = True
         
         st.success("✨ 基于你的直觉与基础属性，AI 大脑已计算出最高得分社团！")
         st.info("侧边栏 AI 助手已就绪，正在为你生成个性化推荐理由 👇")

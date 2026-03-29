@@ -68,7 +68,10 @@ def render():
                         st.caption("已投递简历 | 正在等待社团负责人筛选")
                     with col_status:
                         st.button("查看详情", key=f"view_{club_id}", on_click=lambda c=club_id: (
-                            st.session_state.update(current_club_view=c), 
+                            st.session_state.update(
+                                current_club_view=c,
+                                from_ai_recommendation=False
+                                ), 
                             navigate_to('club_detail')
                         ))
 

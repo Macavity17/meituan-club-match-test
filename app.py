@@ -8,7 +8,7 @@ from views import v5_profile
 
 # 1. 全局配置
 st.set_page_config(
-    page_title="社团招新智能匹配平台",
+    page_title="翻得-Find Your Club",
     page_icon="🎯",
     layout="centered"
 )

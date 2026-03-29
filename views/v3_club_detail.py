@@ -85,61 +85,62 @@ def render():
 
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # ==========================================
-        # 2. 强制打分拦截与聪明的循环跳出逻辑
-        # ==========================================
-        if 'show_rating' not in st.session_state:
-            st.session_state.show_rating = False
-        if 'ask_exit_loop' not in st.session_state:
-            st.session_state.ask_exit_loop = False # 新增拦截状态
+        # 获取流量来源标识 (默认为 False)
+        is_from_ai = st.session_state.get('from_ai_recommendation', False)
 
-        # --- 场景 A：触发了询问弹窗 ---
-        if st.session_state.ask_exit_loop:
-            st.success("🎉 看来你已经成功投递了非常满意（≥4星）的社团！")
-            st.info("是否结束本次心仪社团匹配，去广场看看其他内容？")
-            col_yes, col_no = st.columns(2)
-            with col_yes:
-                if st.button("✅ 结束匹配，去逛广场", use_container_width=True):
-                    st.session_state.show_rating = False
-                    st.session_state.ask_exit_loop = False
-                    st.session_state.current_club_view = None
-                    navigate_to('home_dashboard') # 结束循环，去 V4
-            with col_no:
-                if st.button("🔄 没看够，继续抽卡", use_container_width=True):
-                    st.session_state.show_rating = False
-                    st.session_state.ask_exit_loop = False
-                    st.session_state.current_club_view = None
-                    navigate_to('swipe_cards') # 继续无尽循环，回 V2
+        if is_from_ai:
+            # ==========================================
+            # 场景 A: 从 AI 翻卡进入 -> 启动强制打分拦截与飞轮
+            # ==========================================
+            if 'show_rating' not in st.session_state:
+                st.session_state.show_rating = False
+            if 'ask_exit_loop' not in st.session_state:
+                st.session_state.ask_exit_loop = False
+
+            if st.session_state.ask_exit_loop:
+                st.success("🎉 看来你已经成功投递了非常满意（≥4星）的社团！")
+                st.info("是否结束本次心仪社团匹配，去广场看看其他内容？")
+                col_yes, col_no = st.columns(2)
+                with col_yes:
+                    if st.button("✅ 结束匹配，去逛广场", use_container_width=True):
+                        st.session_state.show_rating = False
+                        st.session_state.ask_exit_loop = False
+                        st.session_state.current_club_view = None
+                        navigate_to('home_dashboard') 
+                with col_no:
+                    if st.button("🔄 没看够，继续抽卡", use_container_width=True):
+                        st.session_state.show_rating = False
+                        st.session_state.ask_exit_loop = False
+                        st.session_state.current_club_view = None
+                        navigate_to('swipe_cards') 
+                        
+            elif not st.session_state.show_rating:
+                if st.button("↩️ 再看看别的 (离开前需为 AI 打分)", use_container_width=True):
+                    st.session_state.show_rating = True
                     
-        # --- 场景 B：正常的强制打分拦截 ---
-        elif not st.session_state.show_rating:
-            if st.button("↩️ 再看看别的 (离开前需打分)", use_container_width=True):
-                st.session_state.show_rating = True
-                st.rerun()
+            else:
+                st.warning("👇 请为本次 AI 匹配的精准度打分，帮助算法越算越准：")
+                match_score = st.slider("1分(完全不搭) - 5分(完美契合)", 1, 5, 3)
                 
-        # --- 场景 C：提交打分并判断去向 ---
+                if st.button("提交反馈并返回", type="primary", use_container_width=True):
+                    update_global_matrix_with_feedback(
+                        club_id=club_id, match_score=match_score,
+                        user_profile=st.session_state.user_profile,
+                        swipe_history=st.session_state.swipe_history
+                    )
+                    has_applied = club_id in st.session_state.get('applied_clubs', [])
+                    if match_score >= 4 and has_applied:
+                        st.session_state.ask_exit_loop = True
+                        st.rerun()
+                    else:
+                        st.session_state.show_rating = False
+                        st.session_state.current_club_view = None
+                        navigate_to('swipe_cards') 
         else:
-            st.warning("👇 请为本次匹配的精准度打分，这将帮助 AI 优化后续推荐：")
-            match_score = st.slider("1分(完全不搭) - 5分(完美契合)", 1, 5, 3)
-            
-            if st.button("提交反馈并返回", type="primary", use_container_width=True):
-                # 触发飞轮数据回流
-                update_global_matrix_with_feedback(
-                    club_id=club_id,
-                    match_score=match_score,
-                    user_profile=st.session_state.user_profile,
-                    swipe_history=st.session_state.swipe_history
-                )
-                
-                # 判断是否满足“跳出循环”的条件：打分 >= 4 且 已经投递了该社团
-                has_applied = club_id in st.session_state.get('applied_clubs', [])
-                
-                if match_score >= 4 and has_applied:
-                    # 满足条件，触发弹窗询问 (场景A)
-                    st.session_state.ask_exit_loop = True
-                    st.rerun()
-                else:
-                    # 不满足条件（例如只打了3分，或者没投递），强制继续循环！
-                    st.session_state.show_rating = False
-                    st.session_state.current_club_view = None
-                    navigate_to('swipe_cards') # 核心修复：无条件滚回 V2 继续抽卡
+            # ==========================================
+            # 场景 B: 从广场自然进入 -> 取消打分，纯净浏览
+            # ==========================================
+            if st.button("⬅️ 返回刚才的页面", use_container_width=True):
+                st.session_state.current_club_view = None
+                # 返回发现广场
+                navigate_to('home_dashboard')
