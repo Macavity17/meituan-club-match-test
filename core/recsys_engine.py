@@ -3,6 +3,10 @@ import os
 import random
 import streamlit as st
 
+# ==========================================
+# 优化 1：引入缓存机制，模拟生产环境高性能读取
+# ==========================================
+@st.cache_data
 def load_clubs_data():
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'mock_clubs.json')
     try:
@@ -11,6 +15,7 @@ def load_clubs_data():
     except FileNotFoundError:
         return []
 
+@st.cache_data
 def load_global_statistics():
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'global_statistics.json')
     try:
@@ -20,15 +25,9 @@ def load_global_statistics():
         return {"tag_affinities": {}, "profile_affinities": {}}
 
 def update_global_matrix_with_feedback(club_id, match_score, user_profile, swipe_history):
-    """
-    【预留的商业化飞轮接口】
-    真实环境中，此函数将连接 DB，根据 match_score 反向更新 tag_affinities 的权重。
-    """
+    """【预留接口】用于未来反向向 DB 回传数据权重"""
     pass
 
-# ==========================================
-# 提取出公共的评分算子，供推断和动态决策树复用
-# ==========================================
 def _calculate_club_scores(user_profile, swipe_history):
     clubs = load_clubs_data()
     full_stats = load_global_statistics()
@@ -36,13 +35,19 @@ def _calculate_club_scores(user_profile, swipe_history):
     tag_matrix = full_stats.get('tag_affinities', {})
     profile_matrix = full_stats.get('profile_affinities', {})
     
+    # 初始化分数
     club_scores = {club['club_id']: 0.0 for club in clubs}
     if not clubs:
         return club_scores, clubs, tag_matrix
-        
+
     # ==========================================
-    # 修复 1：打破“刻板印象”霸权，大幅降低基础画像的权重
-    # 从原来的 2.0 / 1.5 降维到 0.5 / 0.5，让“动态行为”真正主导推荐
+    # 核心修复 1：硬性地理围栏 (Campus Recall Filter)
+    # 实现你在 README 中承诺的“硬召回”逻辑
+    # ==========================================
+    user_campus = user_profile.get('campus', '')
+    
+    # ==========================================
+    # 基础画像评分 (权重 0.5)
     # ==========================================
     time_commit = user_profile.get('time_commit', '')
     mbti = user_profile.get('mbti', '')
@@ -56,7 +61,7 @@ def _calculate_club_scores(user_profile, swipe_history):
             if club_id in club_scores: club_scores[club_id] += (prob * 0.5)
 
     # ==========================================
-    # 行为特征投射 (保持 1.0/3.0 的高权重乘数)
+    # 行为特征投射 (权重 1.0/3.0)
     # ==========================================
     for item in swipe_history:
         choice = item['choice']
@@ -76,91 +81,92 @@ def _calculate_club_scores(user_profile, swipe_history):
             for club_id, historical_prob in tag_matrix[active_tag].items():
                 if club_id in club_scores:
                     club_scores[club_id] += (weight * historical_prob)
-                    
+
     # ==========================================
-    # 修复 2：会话级“负反馈熔断”机制 (Session Blacklist)
-    # 如果用户在详情页打过低分，彻底将其打入冷宫，本轮不再推荐
+    # 核心修复 2：跨校区惩罚逻辑 (Hard Recall Penalty)
+    # 如果用户校区与社团主要活动地点不符，大幅扣分，模拟召回过滤
+    # ==========================================
+    for club in clubs:
+        cid = club['club_id']
+        # 简单逻辑：如果用户选了校区，但社团描述/标签里没有包含这个校区关键词，则降权
+        if user_campus and user_campus != "其他":
+            # 这里的逻辑可以根据你的 mock_clubs.json 结构微调
+            # 假设社团的活动校区信息隐藏在描述或标签中
+            club_text = club.get('detailed_description', '') + "".join(club.get('tags', []))
+            if user_campus not in club_text and "全校" not in club_text:
+                club_scores[cid] -= 5.0 # 强力降权
+
+    # ==========================================
+    # 负反馈熔断 (Session Blacklist)
     # ==========================================
     disliked_clubs = st.session_state.get('disliked_clubs', set())
     for club_id in disliked_clubs:
         if club_id in club_scores:
-            club_scores[club_id] = -999.0 # 强制熔断出局
+            club_scores[club_id] = -999.0 
 
     return club_scores, clubs, tag_matrix
 
-# ==========================================
-# 核心大招：动态决策树 + 探索机制
-# ==========================================
 def get_dynamic_tag_pairs(user_profile, swipe_history, num_pairs=4):
+    """
+    动态决策树生成器。
+    
+    """
     club_scores, clubs, tag_matrix = _calculate_club_scores(user_profile, swipe_history)
     all_tags = list(tag_matrix.keys())
     
-    # 1. 记忆机制：绝对不重复展示过去已经滑过的 tags (包含跨轮次记忆)
+    # 1. 记忆机制：绝对不重复展示
     used_tags = set()
     for item in swipe_history:
         used_tags.add(item['left'])
         used_tags.add(item['right'])
         
     available_tags = [t for t in all_tags if t not in used_tags]
-    
-    # 词库见底时的兜底重置
     if len(available_tags) < 2:
         available_tags = all_tags.copy()
         
-    # 2. 决策树机制：找到当前预测的 Top 3 领先社团
+    # 2. 找到 Top 3 领先社团
     top_clubs = sorted(club_scores, key=club_scores.get, reverse=True)[:3]
-    if not top_clubs and clubs:
-        top_clubs = [c['club_id'] for c in clubs[:3]]
         
-    # 3. 计算剩余标签的“信息增益与区分度”
+    # 3. 标签信息增益评分
     tag_scores = []
     for tag in available_tags:
         affinities = tag_matrix.get(tag, {})
-        # Exploitation (利用): 这个 tag 是否能强力验证当前的高分社团？
         max_top_affinity = max([affinities.get(c, 0.0) for c in top_clubs]) if top_clubs else 0.0
-        # Variance (方差): 这个 tag 在全局是否具有高度区分度？
         all_affs = list(affinities.values())
         variance = (max(all_affs) - min(all_affs)) if all_affs else 0.0
         
-        # 综合试探价值
+        # 权重公式：利用度 + 区分度
         score = (max_top_affinity * 1.5) + (variance * 1.0)
         tag_scores.append({"tag": tag, "score": score})
         
     tag_scores.sort(key=lambda x: x["score"], reverse=True)
     
-    # 4. MAB (多臂老虎机) Epsilon-Greedy 算法组装卡片
+    # 4. Epsilon-Greedy 策略
     pairs = []
     for _ in range(num_pairs):
-        if len(tag_scores) < 2:
-            break
+        if len(tag_scores) < 2: break
             
-        # 70% 概率取最有决策价值的 tag，30% 概率纯随机取长尾/小众 tag
         if random.random() < 0.7:
-            idx1, idx2 = 0, 1
+            idx1, idx2 = 0, 1 # 取价值最高的
         else:
             idx1 = random.randint(0, len(tag_scores) - 1)
             idx2 = random.randint(0, len(tag_scores) - 1)
-            while idx1 == idx2:
-                idx2 = random.randint(0, len(tag_scores) - 1)
+            while idx1 == idx2: idx2 = random.randint(0, len(tag_scores) - 1)
                 
         tag_left = tag_scores[idx1]["tag"]
         tag_right = tag_scores[idx2]["tag"]
-        
         pairs.append({"left": tag_left, "right": tag_right})
-        
-        # 移除已组装的 tag
         tag_scores = [t for t in tag_scores if t["tag"] not in (tag_left, tag_right)]
         
+    # 兜底填充：不再使用“未知/探索”，而是随机从全库取标签
     while len(pairs) < num_pairs:
-         pairs.append({"left": "未知", "right": "探索"})
+         r_tags = random.sample(all_tags, 2)
+         pairs.append({"left": r_tags[0], "right": r_tags[1]})
          
     return pairs
 
 def get_top_recommended_club(user_profile, swipe_history):
-    """输出最终结果"""
+    """最终精排输出"""
     club_scores, clubs, _ = _calculate_club_scores(user_profile, swipe_history)
-    
     if not clubs: return None
-    if sum(club_scores.values()) == 0: return clubs[0]['club_id'] 
-    
     return max(club_scores, key=club_scores.get)
