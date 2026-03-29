@@ -6,13 +6,20 @@ def render():
     profile = st.session_state.get('user_profile', {})
     
     # ==========================================
-    # 🚨 门禁系统：检查是否为未填写的空档案
+    # 🚨 严密门禁系统：检查【所有】三个核心破冰标签是否缺失
     # ==========================================
-    # 如果 profile 为空，或者 name 字段没有填写（初始状态）
-    if not profile or not profile.get('name'):
+    invalid_values = [None, "", "--- 请选择 ---", "保密", "未知"]
+    
+    is_missing_info = (
+        not profile or 
+        profile.get('mbti') in invalid_values or 
+        profile.get('campus') in invalid_values or 
+        profile.get('time_commit') in invalid_values
+    )
+    
+    if is_missing_info:
         st.warning("📋 为了提供精准的 AI 匹配，请先完成基础破冰信息填写。")
         if st.button("前往破冰引导页", type="primary", use_container_width=True):
-            # 引导新用户进入专用的破冰引导流
             navigate_to('onboarding')
         return # 拦截后续渲染
 
