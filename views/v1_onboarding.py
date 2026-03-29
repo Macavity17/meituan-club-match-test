@@ -3,7 +3,7 @@ from core.state_manager import navigate_to
 
 def render():
     """渲染破冰信息收集页"""
-    st.title("💛 探索校园热爱 | AI 匹配引擎")
+    st.title("翻得-Find My Club\n💛 探索校园热爱 | AI 匹配引擎")
     st.markdown("告别「百团大战」的信息过载。只需提供 3 个核心破冰标签，底层推荐算法将为你初始化专属的探索飞轮！")
     
     # 定义空选项常量
