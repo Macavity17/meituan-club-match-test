@@ -270,6 +270,230 @@
         {"user": "DancingQueen", "rating": 5, "comment": "学姐学长特别耐心，氛围简直绝了，每次路演都是全场焦点！", "date": "2026-03-05"},
         {"user": "四肢不协调星人", "rating": 4, "comment": "零基础课很友好，虽然跟不上节奏，但大家都在互相鼓励。", "date": "2025-10-18"}
       ]
+    },
+    {
+      "club_id": "c_008",
+      "name": "寻 Alpha 资产配置与量化投研社",
+      "slogan": "做时间的朋友，在周期中寻找确定的 Alpha",
+      "logo_url": "https://mock-image-url.com/quant.png",
+      "core_keywords_pair": {
+        "left": "量化代码与底层逻辑",
+        "right": "宏观周期与商业直觉"
+      },
+      "tags": ["搞钱", "金融分析", "资产配置", "内卷", "高压竞技"],
+      "basic_info": {
+        "established_year": 2018,
+        "member_count": 55,
+        "activity_frequency": "每周1次复盘会，每季度1次模拟盘大赛"
+      },
+      "club_rating": 4.9,
+      "leadership": [
+        {"role": "执行董事", "name": "巴菲特天津分特"},
+        {"role": "量化模型总监", "name": "李宽客"}
+      ],
+      "architecture": [
+        {"department": "宏观策略组", "role": "研究海内外宏观经济周期与标普家庭资产配置模型"},
+        {"department": "量化工程组", "role": "利用 Python 编写多因子选股模型与回测系统"},
+        {"department": "职业发展部", "role": "对接 CICC中金、券商研究所等头部金融机构实习资源"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-15",
+          "title": "📈 春季模拟盘大赛正式打响！",
+          "content": "本次大赛初始模拟资金100万，考核维度不仅看绝对收益，更看重夏普比率与资产配置的合理性。"
+        }
+      ],
+      "detailed_description": "我们不相信一夜暴富，我们只信仰概率与复利。在这里，你不仅能学到如何建立稳健的个人/家庭资产配置模型，还能接触到真实的量化交易策略。社内学长学姐多有在中金(CICC)等头部券商的实习经历，快来抱大腿！",
+      "reviews": [
+        {"user": "韭菜切割机", "rating": 5, "comment": "干货极多，学长分享的中金实习面经非常硬核，资产配置理念很受用。", "date": "2026-02-10"}
+      ]
+    },
+    {
+      "club_id": "c_009",
+      "name": "「本草华韵」数字医疗与大健康创客社",
+      "slogan": "科技赋能岐黄，本草亦有华韵",
+      "logo_url": "https://mock-image-url.com/herbmony.png",
+      "core_keywords_pair": {
+        "left": "传统医学传承与发掘",
+        "right": "现代 AI 与数字医疗落地"
+      },
+      "tags": ["医疗科技", "创业孵化", "传统文化", "养生", "低耗能"],
+      "basic_info": {
+        "established_year": 2025,
+        "member_count": 40,
+        "activity_frequency": "双周1次项目推进会"
+      },
+      "club_rating": 4.7,
+      "leadership": [
+        {"role": "主理人", "name": "神农小师妹"},
+        {"role": "AI架构师", "name": "华佗赛博版"}
+      ],
+      "architecture": [
+        {"department": "医药理论组", "role": "梳理中医药理，构建数字化本草知识图谱"},
+        {"department": "AI大模型应用组", "role": "开发基于多智能体(Multi-agent)的健康管理专家系统"},
+        {"department": "产业对接部", "role": "与九安医疗(iCarbonX)等大健康企业洽谈项目孵化"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-22",
+          "title": "🌿 “本草华韵”项目组迎来九安医疗专家指导",
+          "content": "上周我们与 iCarbonX 的研发团队进行了深入交流，探讨了自进化血糖管理多智能体系统的可行性！"
+        }
+      ],
+      "detailed_description": "如果你对千篇一律的互联网 APP 感到厌倦，不妨来看看“数字医疗”这片蓝海。我们是一个极具极客精神与传统底蕴的创客团队，核心孵化项目“本草华韵”正在将古老的中医智慧与最新的 AI Agent 结合。宣怀致信班的创业苗子们，这里是你们的主场！",
+      "reviews": [
+        {"user": "保温杯里泡枸杞", "rating": 5, "comment": "创意太赞了，把传统本草和 AI 结合起来，感觉大有可为，期待落地！", "date": "2026-01-20"}
+      ]
+    },
+    {
+      "club_id": "c_010",
+      "name": "重力跃迁极限户外社",
+      "slogan": "向上攀登对抗重力，百步穿杨凝神静气",
+      "logo_url": "https://mock-image-url.com/extreme.png",
+      "core_keywords_pair": {
+        "left": "绝对力量与爆发攀岩",
+        "right": "极致专注与精准射箭"
+      },
+      "tags": ["攀岩", "射箭", "举重", "高耗能", "硬核体育"],
+      "basic_info": {
+        "established_year": 2016,
+        "member_count": 150,
+        "activity_frequency": "每周2次岩馆/箭馆包场，不定期周末户外探险"
+      },
+      "club_rating": 4.8,
+      "leadership": [
+        {"role": "社长", "name": "蜘蛛侠分侠"},
+        {"role": "射箭队指导", "name": "鹰眼"}
+      ],
+      "architecture": [
+        {"department": "抱石与攀岩组", "role": "日常室内抱石死磕磕线，周末野攀挑战"},
+        {"department": "传统/反曲弓射箭组", "role": "调弓、撒放、瞄准训练及校际射箭联赛"},
+        {"department": "核心力量举重部", "role": "深蹲、硬拉、卧推三大项科学突破计划"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-29",
+          "title": "🧗 周末抱石(Bouldering)体验日报名开启",
+          "content": "不用担心手没力气，新手会有资深 V5 选手带你读线，体验对抗重力的快感！"
+        }
+      ],
+      "detailed_description": "生命不息，折腾不止。我们是校园里最硬核的小众运动聚集地。无论你是喜欢在岩壁上像壁虎一样解开抱石难题，还是享受拉满弓弦、呼吸停滞、一箭正中靶心的禅意，亦或是沉醉于举重杠铃片碰撞的金属声，这里都能让你的多巴胺疯狂分泌。",
+      "reviews": [
+        {"user": "镁粉狂魔", "rating": 5, "comment": "自从加入了攀岩组，我的前臂维度大了一圈，非常解压！", "date": "2026-03-10"},
+        {"user": "RobinHood", "rating": 4, "comment": "射箭真的能锻炼专注力，就是买弓太烧钱了...", "date": "2025-11-11"}
+      ]
+    },
+    {
+      "club_id": "c_011",
+      "name": "颠倒世界科幻与奇幻文化研讨会",
+      "slogan": "愿原力与你同在，哪怕在颠倒世界",
+      "logo_url": "https://mock-image-url.com/scifi.png",
+      "core_keywords_pair": {
+        "left": "硬核科幻与宇宙伦理",
+        "right": "奇幻设定与神秘学溯源"
+      },
+      "tags": ["科幻", "星球大战", "影视鉴赏", "奇幻", "低耗能"],
+      "basic_info": {
+        "established_year": 2014,
+        "member_count": 300,
+        "activity_frequency": "双周1次周末观影与圆桌探讨"
+      },
+      "club_rating": 4.6,
+      "leadership": [
+        {"role": "绝地武士大师", "name": "卢克天津分克"},
+        {"role": "霍金斯小镇镇长", "name": "Eleven"}
+      ],
+      "architecture": [
+        {"department": "星战传说考据组", "role": "从正史到传说，深究绝地、西斯与曼达洛人的爱恨情仇"},
+        {"department": "奇物语放映室", "role": "定期组织观看《怪奇物语》、《黑镜》等高分剧集"},
+        {"department": "霍格沃茨魔法重现部", "role": "研究哈利波特世界观，并偶尔组织《霍格沃茨之遗》速通挑战"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-20",
+          "title": "🌌 星战马拉松之夜：西斯的复仇",
+          "content": "带上你的光剑（或者发光手电筒），本周六晚大活放映室，不见不散！"
+        }
+      ],
+      "detailed_description": "如果你相信原力，如果你觉得你的学校地下也藏着一个“颠倒世界 (Upside Down)”，那说明你找对组织了。我们是一群痴迷于宇宙宏大叙事与怪诞小镇传说的 Nerd。来吧，选好你的学院，握紧你的魔杖和光剑，一起逃离枯燥的现实世界！",
+      "reviews": [
+        {"user": "西斯领主", "rating": 5, "comment": "星战粉狂喜！这里的考据党太硬核了，终于有人跟我讨论旧共和国的历史了。", "date": "2025-12-04"},
+        {"user": "Demogorgon", "rating": 5, "comment": "怪奇物语第八季什么时候出啊，等不及了大家一起看！", "date": "2026-01-11"}
+      ]
+    },
+    {
+      "club_id": "c_012",
+      "name": "「聆鱼游方」水族与特宠生态实验社",
+      "slogan": "方寸之间，聆听游鱼的呼吸",
+      "logo_url": "https://mock-image-url.com/aquarium.png",
+      "core_keywords_pair": {
+        "left": "硬核设备与智能监测",
+        "right": "佛系养殖与自然造景"
+      },
+      "tags": ["宠物", "水族造景", "生态系统", "休闲", "低耗能"],
+      "basic_info": {
+        "established_year": 2022,
+        "member_count": 70,
+        "activity_frequency": "每月1次造景教学，日常线上云吸鱼"
+      },
+      "club_rating": 4.7,
+      "leadership": [
+        {"role": "首席造景师", "name": "海王"},
+        {"role": "硬件极客", "name": "水泵修理工"}
+      ],
+      "architecture": [
+        {"department": "南美雨林造景组", "role": "沉木、水草与灯鱼的绝妙搭配教学"},
+        {"department": "智能水族硬件部", "role": "延续“聆鱼游方”大创精神，开发温控、自动喂食与水质监测 IoT 设备"},
+        {"department": "美食绝缘体纠察队", "role": "社长有令：绝不讨论如何烹饪鱼虾蟹贝！(注：社长不吃茄子和蘑菇，聚餐请注意)"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-18",
+          "title": "🐠 零基础开缸教学：你的第一个桌面生态瓶",
+          "content": "提供免费底砂和水草，教你建立基础的硝化系统，把大自然搬上书桌。"
+        }
+      ],
+      "detailed_description": "我们是一群热爱自然生态的“缸中之脑”。在“聆鱼游方”，你不仅能学到如何把一块沉木绑出诗意，还能亲自动手焊电路板，用 IoT 技术给你的水族箱装上智能大脑。特别提醒：本社会定期组织海鲜大餐（虾蟹扇贝管够，但唯独不吃其他带壳软体动物！）。",
+      "reviews": [
+        {"user": "爆藻萌新", "rating": 5, "comment": "学长救了我的鱼！硬件组开发的那个自动监测水质的小玩意儿太好用了。", "date": "2026-02-28"}
+      ]
+    },
+    {
+      "club_id": "c_013",
+      "name": "组织行为与机器交互心理学社",
+      "slogan": "探究机器幻觉，拥抱碳基理智",
+      "logo_url": "https://mock-image-url.com/psych.png",
+      "core_keywords_pair": {
+        "left": "碳基员工心理与工作压力",
+        "right": "硅基模型幻觉与人机协同"
+      },
+      "tags": ["心理学", "AI交互", "学术研究", "职场", "低耗能"],
+      "basic_info": {
+        "established_year": 2020,
+        "member_count": 65,
+        "activity_frequency": "每双周1次文献研讨 (Paper Reading)"
+      },
+      "club_rating": 4.8,
+      "leadership": [
+        {"role": "社长", "name": "弗洛伊德·赛博"},
+        {"role": "定量研究员", "name": "SPSS杀手"}
+      ],
+      "architecture": [
+        {"department": "人机信任研究组", "role": "研究人类对 AI 大模型产生“幻觉(Hallucination)”的容忍阈值"},
+        {"department": "职场高压心理组", "role": "分析不同工作压力源对打工人行为决策的扭曲作用"},
+        {"department": "问卷互填互助联盟", "role": "为了毕业论文的信效度，大家互相行行好！"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-10",
+          "title": "📄 课题招募：打工人对 AI 幻觉的宽容度调研",
+          "content": "目前正在收集数据，探讨在 KPI 压力下，员工是否更愿意捏着鼻子相信 AI 的胡言乱语？欢迎参与访谈！"
+        }
+      ],
+      "detailed_description": "不要把我们和那种做性格测试的娱乐心理社搞混了，我们可是实打实的学术探讨局！当前，AI 大模型席卷职场，我们的核心课题就是研究这种“半神半智障”的硅基生物，到底给碳基打工人的心理带来了怎样的冲击。如果你也在为管理学/心理学毕业论文挠头，来这里准没错！",
+      "reviews": [
+        {"user": "发际线后移的研究僧", "rating": 5, "comment": "在这里找到了毕业论文的灵感，大家一起吐槽 AI 幻觉的时候特别有共鸣！", "date": "2026-03-25"}
+      ]
     }
   ]
 }
