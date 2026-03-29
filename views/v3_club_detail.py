@@ -152,12 +152,23 @@ def render():
                 st.warning("👇 请为本次 AI 匹配的精准度打分，帮助算法越算越准：")
                 match_score = st.slider("1分(完全不搭) - 5分(完美契合)", 1, 5, 3)
                 
+                # views/v3_club_detail.py 替换局部代码：
                 if st.button("提交反馈并返回", type="primary", use_container_width=True):
+                    
+                    # 【新增修复】：如果用户打分 <= 2 星（不搭），直接加入会话黑名单！
+                    if match_score <= 2:
+                        if 'disliked_clubs' not in st.session_state:
+                            st.session_state.disliked_clubs = set()
+                        st.session_state.disliked_clubs.add(club_id)
+                        st.toast("❌ 已记录你的偏好，系统将不再为你推荐该社团！")
+                    
+                    # 触发飞轮数据回流
                     update_global_matrix_with_feedback(
                         club_id=club_id, match_score=match_score,
                         user_profile=st.session_state.get('user_profile', {}),
                         swipe_history=st.session_state.get('swipe_history', [])
                     )
+                    
                     has_applied = club_id in st.session_state.get('applied_clubs', [])
                     if match_score >= 4 and has_applied:
                         st.session_state.ask_exit_loop = True
@@ -165,7 +176,7 @@ def render():
                     else:
                         st.session_state.show_rating = False
                         st.session_state.current_club_view = None
-                        navigate_to('swipe_cards') 
+                        navigate_to('swipe_cards')
         else:
             # ==========================================
             # 场景 B: 从广场自然进入 -> 取消打分，纯净浏览

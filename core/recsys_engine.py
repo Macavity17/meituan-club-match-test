@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import streamlit as st
 
 def load_clubs_data():
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'mock_clubs.json')
@@ -39,19 +40,24 @@ def _calculate_club_scores(user_profile, swipe_history):
     if not clubs:
         return club_scores, clubs, tag_matrix
         
-    # 1. 画像先验概率投射
+    # ==========================================
+    # 修复 1：打破“刻板印象”霸权，大幅降低基础画像的权重
+    # 从原来的 2.0 / 1.5 降维到 0.5 / 0.5，让“动态行为”真正主导推荐
+    # ==========================================
     time_commit = user_profile.get('time_commit', '')
     mbti = user_profile.get('mbti', '')
     
     if time_commit in profile_matrix:
         for club_id, prob in profile_matrix[time_commit].items():
-            if club_id in club_scores: club_scores[club_id] += (prob * 2.0)
+            if club_id in club_scores: club_scores[club_id] += (prob * 0.5) 
             
     if mbti in profile_matrix:
         for club_id, prob in profile_matrix[mbti].items():
-            if club_id in club_scores: club_scores[club_id] += (prob * 1.5)
+            if club_id in club_scores: club_scores[club_id] += (prob * 0.5)
 
-    # 2. 历史滑动行为投射
+    # ==========================================
+    # 行为特征投射 (保持 1.0/3.0 的高权重乘数)
+    # ==========================================
     for item in swipe_history:
         choice = item['choice']
         left_tag = item['left']
@@ -71,6 +77,15 @@ def _calculate_club_scores(user_profile, swipe_history):
                 if club_id in club_scores:
                     club_scores[club_id] += (weight * historical_prob)
                     
+    # ==========================================
+    # 修复 2：会话级“负反馈熔断”机制 (Session Blacklist)
+    # 如果用户在详情页打过低分，彻底将其打入冷宫，本轮不再推荐
+    # ==========================================
+    disliked_clubs = st.session_state.get('disliked_clubs', set())
+    for club_id in disliked_clubs:
+        if club_id in club_scores:
+            club_scores[club_id] = -999.0 # 强制熔断出局
+
     return club_scores, clubs, tag_matrix
 
 # ==========================================
