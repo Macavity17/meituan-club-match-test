@@ -38,11 +38,11 @@ def render():
     col_main, col_ai = st.columns([2, 1], gap="large")
 
     with col_main:
-        # 基本信息展示 (略，保持你之前的逻辑)
+        # 基本信息展示
         st.subheader("📖 社团简介")
         st.write(club_info['detailed_description'])
         
-        # 核心团队与架构 (略，保持你之前的逻辑)
+        # 核心团队与架构
         for dept in club_info.get('architecture', []):
             st.markdown(f"- **{dept['department']}**: {dept['role']}")
 
@@ -50,22 +50,44 @@ def render():
         st.subheader("🤖 AI 匹配助手")
         
         # ==========================================
-        # 🚀 改进 1：冷启动检测与多样化话术
+        # 🚀 改进：双层数据完整性拦截 (Profile + Swipe)
         # ==========================================
+        user_profile = st.session_state.get('user_profile', {})
+        mbti = user_profile.get('mbti', '--')
+        campus = user_profile.get('campus', '--')
+        time_commit = user_profile.get('time_commit', '--')
+        
+        # 判断基本 profile 是否缺失 (任何一个核心字段为默认或空)
+        is_profile_missing = (
+            not user_profile or 
+            mbti in ["--", "", None, "保密", "未知", "其他/暂时保密"] or 
+            campus in ["--", "", None] or 
+            time_commit in ["--", "", None]
+        )
+        
         swipe_history = st.session_state.get('swipe_history', [])
         cache_key = f"ai_reason_{club_id}"
         
         with st.chat_message("assistant"):
-            if not swipe_history:
-                # 情况 A：没有用户行为数据，拒绝分析并引导
-                st.warning("🏮 哎呀，AI 助手目前还不了解你的偏好。")
-                st.write("请先前往 **'AI 匹配'** 页面完成简单的潜意识测试，这样我才能为你提供精准的匹配分析哦！")
+            if is_profile_missing:
+                # 情况 A：基本 Profile 缺失，提示去完善档案
+                st.warning("🏮 哎呀，你的基础破冰档案还不完整。")
+                st.write("请先完善你的 **MBTI、主要活动校区、预期投入时间** 等基础信息，这样 AI 才能为你提供不悬浮的精准匹配分析！")
+                if st.button("📝 立即完善档案", use_container_width=True):
+                    # 巧妙联动：跳转到 V5 个人主页并直接激活编辑模式
+                    st.session_state.edit_mode = True
+                    navigate_to('profile')
+                    
+            elif not swipe_history:
+                # 情况 B：有基本画像，但没有潜意识滑动数据，提示去翻卡
+                st.warning("🏮 档案已就绪，但 AI 还需要了解你的直觉偏好。")
+                st.write("请前往 **'AI 匹配'** 页面完成简单的潜意识测试，这样我才能为你生成专属分析报告哦！")
                 if st.button("🎯 去测试一下", use_container_width=True):
                     navigate_to('swipe_cards')
+                    
             else:
-                # 情况 B：有数据，正常分析
+                # 情况 C：数据齐全，进行正常分析
                 if cache_key not in st.session_state:
-                    # 随机选择一个话术模板前缀
                     templates = [
                         "🔍 **深度解析**：基于你在匹配测试中展现出的倾向，我发现...",
                         "💡 **匹配亮点**：之所以推荐这个社团，是因为你的潜意识告诉我们...",
@@ -74,7 +96,7 @@ def render():
                     prefix = random.choice(templates)
                     
                     raw_reason = generate_match_reasoning(
-                        user_profile=st.session_state.get('user_profile', {}),
+                        user_profile=user_profile,
                         swipe_history=swipe_history,
                         club_info=club_info
                     )
@@ -100,9 +122,6 @@ def render():
             if 'show_rating_area' not in st.session_state:
                 st.session_state.show_rating_area = False
             
-            # ==========================================
-            # 🚀 改进 2：打分与退出逻辑修复
-            # ==========================================
             if not st.session_state.show_rating_area:
                 if st.button("↩️ 再看看别的", use_container_width=True):
                     st.session_state.show_rating_area = True
@@ -116,15 +135,12 @@ def render():
                     update_global_matrix_with_feedback(club_id, score, st.session_state.get('user_profile', {}), swipe_history)
                     
                     if score >= 4:
-                        # 此时触发询问是否结束
                         st.session_state.ask_to_finish = True
                         st.rerun()
                     else:
-                        # 分数低则直接回滚，继续匹配
                         st.session_state.show_rating_area = False
                         navigate_to('swipe_cards')
 
-                # 如果满足高分条件，显示退出询问
                 if st.session_state.get('ask_to_finish'):
                     st.success("🎉 看来 AI 已经帮你找到了心仪的目标！")
                     c1, c2 = st.columns(2)

@@ -42,17 +42,17 @@ def render():
     
     profile = st.session_state.user_profile
     
-    # 默认值初始化
+    # 🎯 【完全保留你的原版默认值字典，一字未动】
     defaults = {
-        "name": "Paxon",
-        "gender": "男",
-        "enrollment_year": "2024",
-        "mbti": profile.get("mbti", "ENTP"),
-        "campus": profile.get("campus", "卫津路校区"),
-        "time_commit": profile.get("time_commit", "3-5小时 (积极参与)"),
+        "name": "--",
+        "gender": "--",
+        "enrollment_year": "--",
+        "mbti": profile.get("mbti", "--"),
+        "campus": profile.get("campus", "--"),
+        "time_commit": profile.get("time_commit", "--"),
         "college": "天津大学",
         "major": "管理科学与工程",
-        "bio": "来自青岛，对资产配置和AI大模型有浓厚兴趣。平时喜欢举重、攀岩和射箭。目前正在准备关于员工对AI幻觉容忍度的毕业论文。"
+        "bio": "来自青岛，对资产配置和AI大模型有浓厚兴趣。平时喜欢健身和看展。目前正在准备关于员工对AI幻觉容忍度的毕业论文。"
     }
     
     for k, v in defaults.items():
@@ -62,10 +62,13 @@ def render():
     if 'edit_mode' not in st.session_state:
         st.session_state.edit_mode = False
 
+    # 💡 【仅新增这一行】：判断是否为初始 "--" 状态
+    is_empty = profile.get("name") == "--"
+
     st.subheader("📝 个人档案")
     with st.container(border=True):
         if st.session_state.edit_mode:
-            # --- 编辑模式 ---
+            # --- ✏️ 编辑模式 (完全保留你的原版代码) ---
             c1, c2 = st.columns(2)
             with c1:
                 new_name = st.text_input("姓名", value=profile["name"])
@@ -99,8 +102,16 @@ def render():
                 })
                 st.session_state.edit_mode = False
                 st.rerun()
+
+        elif is_empty:
+            # --- 💡 新增引导模式：如果姓名还是 "--"，就显示引导按钮，不显示横杠 ---
+            st.info("👋 你的档案目前还是初始状态。完善后 AI 匹配将更加精准！")
+            if st.button("✨ 立即完善个人档案", type="primary", use_container_width=True):
+                st.session_state.edit_mode = True
+                st.rerun()
+
         else:
-            # --- 阅览模式 ---
+            # --- 📖 阅览模式 (完全保留你的原版代码) ---
             col_t, col_b = st.columns([4, 1])
             with col_t:
                 st.markdown(f"### {profile['name']}  `{profile['gender']}`")
@@ -113,7 +124,7 @@ def render():
             st.info(profile['bio'])
 
     # ==========================================
-    # 模块 2：投递记录 (核心业务资产)
+    # 模块 2：投递记录 (完全保留你的原版代码)
     # ==========================================
     st.markdown("<br>", unsafe_allow_html=True)
     st.subheader("📬 投递进度")

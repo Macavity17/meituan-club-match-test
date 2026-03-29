@@ -3,6 +3,14 @@ from core.state_manager import navigate_to
 from core.recsys_engine import get_dynamic_tag_pairs, get_top_recommended_club
 
 def render():
+    profile = st.session_state.get('user_profile', {})
+    # 检查核心字段是否存在且不为默认的空值
+    if not profile or profile.get('mbti') in [None, "", "--"]:
+        st.warning("📋 为了提供精准的 AI 匹配，请先完成基础信息填写。")
+        if st.button("前往填写破冰信息", type="primary", use_container_width=True):
+            navigate_to('onboarding')
+        return # 拦截后续渲染
+
     st.title("🎴 发现你的热爱")
     
     # ==========================================
