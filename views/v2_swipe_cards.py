@@ -5,16 +5,12 @@ import base64
 from core.state_manager import navigate_to
 from core.recsys_engine import get_dynamic_tag_pairs, get_top_recommended_club
 
-# 💡 工程辅助函数：为了确保 JSON 数据能在 URL 中安全传输，我们对其进行简单的 Base64 编码
 def b64_encode(text):
     return base64.b64encode(text.encode('utf-8')).decode('utf-8')
 
 def render():
     st.title("🎴 发现你的热爱")
     
-    # ==========================================
-    # 顶部全局导航栏
-    # ==========================================
     col_nav1, col_nav2, col_nav3 = st.columns(3)
     with col_nav1:
         if st.button("🏠 发现主页", use_container_width=True):
@@ -26,14 +22,11 @@ def render():
             navigate_to('profile')
     st.markdown("---")
 
-    # 初始化状态机
     if 'swipe_history' not in st.session_state:
         st.session_state.swipe_history = []
-        
     if 'swipe_index' not in st.session_state:
         st.session_state.swipe_index = 0
         
-    # 1. 结合历史记忆，动态获取拔河卡片 (决策树引擎)
     if 'dynamic_pairs' not in st.session_state:
         with st.spinner("🧠 算法正在根据你的潜意识，实时生成深度测试分支..."):
             st.session_state.dynamic_pairs = get_dynamic_tag_pairs(
@@ -45,24 +38,15 @@ def render():
     current_idx = st.session_state.swipe_index
     total_cards = len(st.session_state.dynamic_pairs)
     
-    # 2. 核心：动态翻卡对决区域
     if current_idx < total_cards:
         st.markdown(f"**匹配进度：{current_idx + 1} / {total_cards}**")
         pair = st.session_state.dynamic_pairs[current_idx]
         
-        # ==========================================
-        # 🚀 越狱前端代码：HTML + CSS + JS 联动画引擎
-        # ==========================================
-        # 为了防冲突，为这个 iframe 生成唯一的 DOM ID 后缀
         uid = f"{current_idx}"
-        
-        # 获取当前 Streamlit App 的基础 URL (用于生成代理链接)
-        # 如果是在 streamlit.io 部署，这里会自动适配，本地开发为 localhost:8501
-        base_url = "http://localhost:8501/" 
 
         custom_html = f"""
         <style>
-            #swipe-container-{uid} {{ width: 100%; max-width: 400px; margin: 0 auto; text-align: center; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow: hidden; position: relative; }}
+            #swipe-container-{uid} {{ width: 100%; max-width: 400px; margin: 0 auto; text-align: center; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow: hidden; position: relative; padding-bottom: 20px; }}
             #card-viewport-{uid} {{ position: relative; height: 230px; margin-bottom: 20px; display: flex; justify-content: center; align-items: center; perspective: 1000px; }}
             
             .card {{ position: absolute; width: 140px; height: 190px; border-radius: 18px; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; box-shadow: 0 10px 25px rgba(0,0,0,0.25); transition: transform 0.15s ease-out, opacity 0.1s ease-out, z-index 0.0s linear; overflow: hidden; }}
@@ -75,7 +59,7 @@ def render():
             .slider-labels {{ display: flex; justify-content: space-between; padding: 0 15px; color: #777; font-size: 12px; margin-bottom: 25px; }}
             .slider-labels span.dot {{ color: #ccc; font-weight: normal; }}
             
-            #confirm-btn-{uid} {{ width: 100%; padding: 12px; background: #FF4B4B; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.1s; opacity: 0.8; box-sizing: border-box; }}
+            #confirm-btn-{uid} {{ width: 100%; padding: 12px; background: #FF4B4B; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.1s; opacity: 0.8; box-sizing: border-box; margin-top: 10px; }}
             #confirm-btn-{uid}:not(.disabled):hover {{ background: #E03D3D; opacity: 1; }}
             #confirm-btn-{uid}.disabled {{ background: #ccc; cursor: not-allowed; }}
         </style>
@@ -96,7 +80,7 @@ def render():
             <div class="slider-labels">
                 <span>绝对A</span>
                 <span class="dot">·</span>
-                <span>無感</span>
+                <span>中立</span>
                 <span class="dot">·</span>
                 <span>绝对B</span>
             </div>
@@ -110,39 +94,41 @@ def render():
                 const cL = document.getElementById('card-left-{uid}');
                 const cR = document.getElementById('card-right-{uid}');
                 const btn = document.getElementById('confirm-btn-{uid}');
-                const base = "{base_url}";
+                
+                // 【修复Bug 3】: 动态获取父级真实 URL，兼容本地与 Cloud
+                const parentUrl = document.referrer ? document.referrer.split('?')[0] : window.location.origin;
 
-                // 词典映射 (恢复带冒号的精准文本锚点，供后端切词引擎使用)
                 const labelsL = "👈 绝对偏向：{pair['left']}";
+                
+                // 【修复Bug 1】: 修改了拼写错误的变量名 labelsRR -> labelsR
                 const labelsR = "绝对偏向：{pair['right']} 👉";
 
                 const labelsL1 = "偏向：{pair['left']}";
                 const labelsR1 = "偏向：{pair['right']}";
-                const labelM = "⚖️ 都可以 / 无感";
+                
+                // 【修复Bug 4】: 统一文案为“中立”
+                const labelM = "⚖️ 中立"; 
 
                 const get_choice_text = (val) => {{
                     if (val === 1) return labelsL;
                     if (val === 2) return labelsL1;
                     if (val === 3) return labelM;
                     if (val === 4) return labelsR1;
-                    if (val === 5) return labelsRR;
+                    if (val === 5) return labelsR; 
                 }}
 
                 sl.addEventListener('input', (e) => {{
                     const val = parseInt(e.target.value);
                     
-                    // 1. 激活锁定按钮并更新文本
                     if (val !== 3) {{
                         btn.className = "";
                         btn.innerText = "锁定选择 ➡️ " + get_choice_text(val).replace('⚖️ ', '');
                     }} else {{
-                        btn.className = "disabled";
-                        btn.innerText = labelM;
+                        btn.className = ""; // 允许中立时点击跳过
+                        btn.innerText = "跳过此题 ➡️";
                     }}
 
-                    // 2. 60FPS 的核心联动动画：缩放、旋转、透明度、层级
                     if (val === 3) {{
-                        // 复位
                         cL.style.transform = "translateX(-65px) rotate(-10deg) scale(0.95)";
                         cL.style.opacity = "0.9";
                         cL.style.zIndex = "1";
@@ -150,7 +136,6 @@ def render():
                         cR.style.opacity = "0.9";
                         cR.style.zIndex = "1";
                     }} else if (val < 3) {{
-                        // 偏左：左放大居中，右缩小淡出
                         let scale = 1 + (3 - val) * 0.1;
                         let move = -65 + (3 - val) * 45; 
                         cL.style.transform = `translateX(${{move}}px) rotate(0deg) scale(${{scale}})`;
@@ -163,7 +148,6 @@ def render():
                         cR.style.opacity = 0.9 - (3 - val) * 0.4;
                         cR.style.zIndex = "1";
                     }} else {{
-                        // 偏右：右放大居中，左缩小淡出
                         let scale = 1 + (val - 3) * 0.1;
                         let move = 65 - (val - 3) * 45; 
                         cR.style.transform = `translateX(${{move}}px) rotate(0deg) scale(${{scale}})`;
@@ -177,8 +161,6 @@ def render():
                         cL.style.zIndex = "1";
                     }}
                     
-                    // 3. ✨ 核心工程突破：动态构建 URL 代理数据包
-                    // 将选择的文本锚点 JSON 化，并进行 Base64 编码以在 URL 中传输
                     const choice_data = JSON.stringify({{
                         "left": "{pair['left']}",
                         "right": "{pair['right']}",
@@ -186,37 +168,17 @@ def render():
                         "choice": get_choice_text(val)
                     }});
                     
-                    // base64_encode 是父页面注入的辅助函数，JS里我们用 btoa 实现
-                    // 将编码后的数据包放入 URL 参数 'swipe_payload'
-                    if (val !== 3) {{
-                        btn.href = base + "?swipe_payload=" + btoa(unescape(encodeURIComponent(choice_data)));
-                        btn.target = "_parent"; // 必须在父窗口加载链接，从而被 state_manager 捕获
-                    }} else {{
-                        btn.href = "javascript:void(0);";
-                        btn.target = "_self";
-                    }}
+                    btn.href = parentUrl + "?swipe_payload=" + btoa(unescape(encodeURIComponent(choice_data)));
+                    btn.target = "_parent"; 
                 }});
             }})();
         </script>
         """
         
-        # 将带有高级动画的 HTML 渲染到页面，预留足够高度
-        components.html(custom_html, height=380)
+        # 【修复Bug 2】: 扩大了 iframe 高度，从 380 提升到 430，防止按钮被切断
+        components.html(custom_html, height=430)
 
-        # 3. 如果用户对这一轮全无感，手动跳出循环的按钮 (不需要数据)
-        st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("🤷 都不感冒，直接重洗标签池", use_container_width=True):
-             # 清除当前卡片池和记忆，让决策树重开开局 (探索机制)
-            if 'dynamic_pairs' in st.session_state:
-                del st.session_state.dynamic_pairs
-            st.session_state.swipe_index = 0
-            st.session_state.swipe_history = [] 
-            st.rerun()
-            
     else:
-        # ==========================================
-        # 3. 算法计算与转化拦截页面 (完全保留原版功能)
-        # ==========================================
         with st.spinner('🎯 正在锁定最佳匹配项...'):
             best_club_id = get_top_recommended_club(
                 st.session_state.get('user_profile', {}), 
@@ -227,19 +189,16 @@ def render():
         st.session_state.from_ai_recommendation = True
         
         st.success("✨ 基于你的直觉，AI 大脑已锁定最佳契合度社团！")
-        st.info("侧边栏 AI 助手已就绪，正在为你生成个性化匹配分析 👇")
         
         col1, col2 = st.columns(2)
         with col1:
             if st.button("👀 立即查看专属推荐理由", type="primary", use_container_width=True):
-                # 清空本轮状态，以便退出来重刷时重新生成更深的卡片
                 if 'dynamic_pairs' in st.session_state:
                     del st.session_state.dynamic_pairs
                 st.session_state.swipe_index = 0
                 navigate_to('club_detail')
         with col2:
-            if st.button("❌ 感觉不对，重洗标签", use_container_width=True):
-                # 清除记忆，基于探索机制重开
+            if st.button("❌ 感觉不对，重新测试", use_container_width=True):
                 if 'dynamic_pairs' in st.session_state:
                     del st.session_state.dynamic_pairs
                 st.session_state.swipe_index = 0
