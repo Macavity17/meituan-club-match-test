@@ -31,7 +31,7 @@ def render():
     st.title("🏠 社团发现广场")
     
     # 【新增】顶部小字仓库链接
-    st.caption("🔗 [访问 GitHub 仓库获取源码](https://github.com/your-username/meituan-club-match)")
+    st.caption("🔗 [访问 GitHub 仓库获取源码](https://https://github.com/Macavity17/meituan-club-match-test)")
     
     # ==========================================
     # 顶部全局导航栏 (Mock 切换)
