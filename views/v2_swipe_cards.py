@@ -4,11 +4,17 @@ from core.recsys_engine import get_dynamic_tag_pairs, get_top_recommended_club
 
 def render():
     profile = st.session_state.get('user_profile', {})
-    # 检查核心字段是否存在且不为默认的空值
-    if not profile or profile.get('mbti') in [None, "", "--"]:
+    
+    # ==========================================
+    # 🚨 修复门禁系统：检查是否为未填写的空档案
+    # ==========================================
+    # 如果 profile 为空，或者 name 字段没有填写（我们之前在 v5 中将 name 默认设为了 ""）
+    if not profile or not profile.get('name'):
         st.warning("📋 为了提供精准的 AI 匹配，请先完成基础信息填写。")
         if st.button("前往填写破冰信息", type="primary", use_container_width=True):
-            navigate_to('onboarding')
+            # 跳转到 profile 页面并直接激活编辑模式
+            st.session_state.edit_mode = True
+            navigate_to('profile')
         return # 拦截后续渲染
 
     st.title("🎴 发现你的热爱")
@@ -70,7 +76,7 @@ def render():
 
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # 恢复原生拔河滑块 (合并了 Bug 4 的“中立”文案修复)
+        # 恢复原生拔河滑块
         choice = st.select_slider(
             label="你的直觉偏向是？",
             options=[
