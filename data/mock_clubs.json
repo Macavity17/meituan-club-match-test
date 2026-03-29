@@ -9,12 +9,18 @@
         "left": "硬核技术研究",
         "right": "商业落地探索"
       },
-      "tags": ["数据科学", "极客", "创业孵化", "高能耗"],
+      "tags": ["数据科学", "极客", "创业孵化", "高耗能"],
       "basic_info": {
         "established_year": 2019,
         "member_count": 85,
         "activity_frequency": "每周2次 (周三晚、周日下午)"
       },
+      "club_rating": 4.8,
+      "leadership": [
+        {"role": "社长", "name": "李雷"},
+        {"role": "算法组负责人", "name": "韩梅梅"},
+        {"role": "工程组负责人", "name": "张伟"}
+      ],
       "architecture": [
         {"department": "算法研究部", "role": "探索前沿模型与打 Kaggle 比赛"},
         {"department": "产品工程部", "role": "将 AI 算法包装为可用产品"},
@@ -32,7 +38,11 @@
           "content": "特邀业界资深专家来校分享，地点：宣怀楼 204，欢迎旁听。"
         }
       ],
-      "detailed_description": "我们不仅是一个学术讨论组，更是一个微型的科技创业孵化器。在这里，你可以接触到最前沿的 AI 技术，也可以找到志同道合的伙伴一起将想法变成现实。无论你是想深耕底层算法，还是想做懂技术的 AI PM，这里都有你的舞台。"
+      "detailed_description": "我们不仅是一个学术讨论组，更是一个微型的科技创业孵化器。在这里，你可以接触到最前沿的 AI 技术，也可以找到志同道合的伙伴一起将想法变成现实。无论你是想深耕底层算法，还是想做懂技术的 AI PM，这里都有你的舞台。",
+      "reviews": [
+        {"user": "匿名极客", "rating": 5, "comment": "干货真的很多，学长学姐带飞，就是有点肝，发际线预警！", "date": "2025-12-10"},
+        {"user": "User_9527", "rating": 4, "comment": "氛围很好，每周的 Paper Reading 收益很大。", "date": "2025-11-05"}
+      ]
     },
     {
       "club_id": "c_002",
@@ -49,6 +59,11 @@
         "member_count": 120,
         "activity_frequency": "每周3次 (晚训)"
       },
+      "club_rating": 4.6,
+      "leadership": [
+        {"role": "会长", "name": "王强"},
+        {"role": "外联部部长", "name": "赵敏"}
+      ],
       "architecture": [
         {"department": "竞技队", "role": "代表学校参加省级武术与散打比赛"},
         {"department": "大众训练营", "role": "面向零基础同学的体能提升与防身术教学"},
@@ -61,7 +76,11 @@
           "content": "不需要任何基础，学长学姐手把手教你正确的发力技巧和躲闪意识。"
         }
       ],
-      "detailed_description": "告别亚健康，从踏入训练垫的第一步开始。我们提供专业的散打、拳击训练指导。无论你是想追求极致的竞技对抗，还是单纯想通过挥洒汗水来释放学业压力、保持好身材，这里都是最纯粹的挥汗之地。"
+      "detailed_description": "告别亚健康，从踏入训练垫的第一步开始。我们提供专业的散打、拳击训练指导。无论你是想追求极致的竞技对抗，还是单纯想通过挥洒汗水来释放学业压力、保持好身材，这里都是最纯粹的挥汗之地。",
+      "reviews": [
+        {"user": "匿名用户", "rating": 5, "comment": "王强会长不仅能打，人还特别耐心，小白友好！", "date": "2026-01-15"},
+        {"user": "铁拳李", "rating": 4, "comment": "训练强度很大，能出汗解压，推荐大家来体验。", "date": "2025-10-22"}
+      ]
     },
     {
       "club_id": "c_003",
@@ -78,9 +97,14 @@
         "member_count": 60,
         "activity_frequency": "每周1次项目同步会"
       },
+      "club_rating": 4.9,
+      "leadership": [
+        {"role": "发起人", "name": "陈明"},
+        {"role": "技术总监", "name": "林婉儿"}
+      ],
       "architecture": [
         {"department": "项目调研组", "role": "深入社区与公益组织发掘技术痛点"},
-        {"department": "系统研发组", "role": "开发诸如多智能体协作、区块链信任机制等公益系统"},
+        {"department": "系统研发组", "role": "开发多智能体协作、区块链信任机制等系统"},
         {"department": "公关宣传组", "role": "负责项目成果展示与招募志愿者"}
       ],
       "recent_news": [
@@ -90,7 +114,10 @@
           "content": "我们正在筹备一个关于提升公益组织信任度的模拟实验项目，急需对仿真和机制设计感兴趣的同学！"
         }
       ],
-      "detailed_description": "我们相信技术不仅是为了商业变现，更是为了解决真实的社会问题。我们致力于将前沿技术（如生成式 AI、区块链等）引入传统的公益慈善领域，打破信任壁垒，让每一份善意都能被精准传递。"
+      "detailed_description": "我们相信技术不仅是为了商业变现，更是为了解决真实的社会问题。我们致力于将前沿技术引入传统的公益慈善领域，打破信任壁垒，让每一份善意都能被精准传递。",
+      "reviews": [
+        {"user": "爱心小天使", "rating": 5, "comment": "做的事情非常有意义，技术氛围也很好，不会像其他技术社团那么卷。", "date": "2026-02-14"}
+      ]
     },
     {
       "club_id": "c_004",
@@ -105,8 +132,13 @@
       "basic_info": {
         "established_year": 2015,
         "member_count": 200,
-        "activity_frequency": "不定期线上联机，每月1次线下桌游/GameJam"
+        "activity_frequency": "不定期线上联机，每月1次线下GameJam"
       },
+      "club_rating": 4.7,
+      "leadership": [
+        {"role": "社长", "name": "周杰"},
+        {"role": "主策划", "name": "吴宇"}
+      ],
       "architecture": [
         {"department": "独立游戏开发组", "role": "策划、美术、程序的孵化地"},
         {"department": "剧情与叙事研究组", "role": "深度解析 RPG/推理类游戏的世界观与逻辑"},
@@ -119,7 +151,125 @@
           "content": "带上你的手柄！本周五晚有《弹丸论破》系列的复盘讨论，以及大空间 VR 体验。"
         }
       ],
-      "detailed_description": "无论是深邃庞大的奇幻开放世界，还是逻辑缜密的推理视觉小说，这里聚集了一群热爱“第九艺术”的玩家和创作者。我们不只是玩游戏，我们更热衷于拆解游戏机制，甚至亲自动手创造属于我们的世界。"
+      "detailed_description": "无论是深邃庞大的奇幻开放世界，还是逻辑缜密的推理视觉小说，这里聚集了一群热爱“第九艺术”的玩家和创作者。我们不只是玩游戏，我们更热衷于拆解游戏机制，甚至亲自动手创造属于我们的世界。",
+      "reviews": [
+        {"user": "高玩老斯基", "rating": 5, "comment": "这里有全校最多的主机和卡带！GameJam 活动超级肝但也超级爽。", "date": "2026-03-01"}
+      ]
+    },
+    {
+      "club_id": "c_005",
+      "name": "光影摄影协会",
+      "slogan": "定格瞬间，捕捉永恒",
+      "logo_url": "https://mock-image-url.com/photo.png",
+      "core_keywords_pair": {
+        "left": "视觉艺术表达",
+        "right": "器材与后期技术"
+      },
+      "tags": ["摄影", "艺术", "外拍采风", "低耗能", "文艺"],
+      "basic_info": {
+        "established_year": 2008,
+        "member_count": 350,
+        "activity_frequency": "每月2次周末外拍，不定期评图会"
+      },
+      "club_rating": 4.5,
+      "leadership": [
+        {"role": "会长", "name": "陈思"},
+        {"role": "后期讲师", "name": "刘一刀"}
+      ],
+      "architecture": [
+        {"department": "外拍企划组", "role": "策划周末校内外采风路线及模特邀约"},
+        {"department": "后期技术部", "role": "PS、LR 及视频剪辑技术培训"},
+        {"department": "暗房实验室", "role": "胶片冲洗与传统暗房技术研究"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-04-02",
+          "title": "🌸 春日樱花季主题外拍招募",
+          "content": "本周末我们将前往市植物园进行春季人像与风景外拍，提供部分镜头借用服务。"
+        }
+      ],
+      "detailed_description": "用镜头观察世界，用光影记录故事。无论你是长枪短炮的器材党，还是偏爱手机摄影的记录者，光影摄影协会都欢迎你的加入。我们有丰富的校外采风活动、专业的棚拍体验以及零基础的后期教学。",
+      "reviews": [
+        {"user": "胶片爱好者", "rating": 5, "comment": "暗房体验太棒了！自己冲洗出第一张黑白照片的时候成就感拉满。", "date": "2025-11-20"},
+        {"user": "匿名同学", "rating": 4, "comment": "社里大佬很多，能学到不少布光技巧，就是外出活动抢名额太难了。", "date": "2026-03-15"}
+      ]
+    },
+    {
+      "club_id": "c_006",
+      "name": "纵横辩论社",
+      "slogan": "言之有理，辩之有道",
+      "logo_url": "https://mock-image-url.com/debate.png",
+      "core_keywords_pair": {
+        "left": "逻辑推演与思辨",
+        "right": "临场反应与表达"
+      },
+      "tags": ["思辨", "公众表达", "高压竞技", "高耗能", "逻辑"],
+      "basic_info": {
+        "established_year": 2010,
+        "member_count": 90,
+        "activity_frequency": "每周2次例会及模辩"
+      },
+      "club_rating": 4.8,
+      "leadership": [
+        {"role": "队长", "name": "孙正义"},
+        {"role": "教练", "name": "马学长"}
+      ],
+      "architecture": [
+        {"department": "校队主力组", "role": "代表学校出战全国及地区辩论赛事"},
+        {"department": "赛事运营部", "role": "举办校内“新生杯”及“金秋杯”辩论赛"},
+        {"department": "资料智库组", "role": "负责辩题破题、资料检索与论点库建设"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-28",
+          "title": "🏆 捷报！我校代表队挺进华语辩论锦标赛八强",
+          "content": "在昨日关于‘人工智能是否会削弱人类主体性’的辩论中，我方四辩荣获最佳辩手！"
+        }
+      ],
+      "detailed_description": "真理越辩越明。在纵横辩论社，你将接受高强度的逻辑思维训练和语言表达打磨。我们探讨哲学、伦理、社会热点，在唇枪舌剑中拓宽认知的边界。准备好迎接头脑风暴了吗？",
+      "reviews": [
+        {"user": "逻辑控", "rating": 5, "comment": "极其锻炼思维！虽然备赛熬夜查资料很痛苦，但场上结辩那一刻真的帅爆了。", "date": "2026-01-05"},
+        {"user": "社恐选手", "rating": 5, "comment": "加入辩论社治好了我的社恐，现在面对几百人发言都不带抖的。", "date": "2025-12-28"}
+      ]
+    },
+    {
+      "club_id": "c_007",
+      "name": "街舞社 (Street Dance Crew)",
+      "slogan": "Keep on Dancing, Keep on Shining",
+      "logo_url": "https://mock-image-url.com/dance.png",
+      "core_keywords_pair": {
+        "left": "肢体协调与节奏",
+        "right": "个性释放与表演"
+      },
+      "tags": ["舞蹈", "音乐", "表演", "高耗能", "潮流"],
+      "basic_info": {
+        "established_year": 2013,
+        "member_count": 220,
+        "activity_frequency": "每周2次常规课，不定期随机舞蹈"
+      },
+      "club_rating": 4.6,
+      "leadership": [
+        {"role": "社长/编舞", "name": "Kiki"},
+        {"role": "Hiphop队长", "name": "阿涛"},
+        {"role": "Jazz队长", "name": "小雅"}
+      ],
+      "architecture": [
+        {"department": "舞种教研组", "role": "分 Hiphop、Jazz、Popping 等舞种进行日常教学"},
+        {"department": "演出排练组", "role": "负责校内外各大晚会的节目编排与登台表演"},
+        {"department": "媒体公关部", "role": "负责舞蹈视频拍摄、剪辑及 B 站账号运营"}
+      ],
+      "recent_news": [
+        {
+          "date": "2026-03-30",
+          "title": "🕺 校园百团大战：路演随机舞蹈 (Random Play Dance)",
+          "content": "本周五中午在操场举行 K-pop 及各类热门街舞曲目随机大挑战，等你来 Battle！"
+        }
+      ],
+      "detailed_description": "没有拘束，只有节奏。街舞社是全校最具活力和潮流气息的社团。无论你是拥有多年基础的 Dancer，还是只想通过舞蹈提升自信的零基础小白，这里都有你的位置。和我们一起，用汗水浇灌热爱！",
+      "reviews": [
+        {"user": "DancingQueen", "rating": 5, "comment": "学姐学长特别耐心，氛围简直绝了，每次路演都是全场焦点！", "date": "2026-03-05"},
+        {"user": "四肢不协调星人", "rating": 4, "comment": "零基础课很友好，虽然跟不上节奏，但大家都在互相鼓励。", "date": "2025-10-18"}
+      ]
     }
   ]
 }
