@@ -30,10 +30,14 @@ def get_all_news(clubs):
 def render():
     st.title("🏠 社团发现广场")
     
+    # 【新增】顶部小字仓库链接
+    st.caption("🔗 [访问 GitHub 仓库获取源码](https://github.com/your-username/meituan-club-match)")
+    
     # ==========================================
     # 顶部全局导航栏 (Mock 切换)
     # ==========================================
-    col_nav1, col_nav2, col_nav3 = st.columns(3)
+    # 【修改】扩充为 4 栏导航栏
+    col_nav1, col_nav2, col_nav3, col_nav4 = st.columns(4)
     with col_nav1:
         st.button("🏠 发现主页", use_container_width=True, disabled=True)
     with col_nav2:
@@ -42,6 +46,9 @@ def render():
     with col_nav3:
         if st.button("👤 我的与投递", use_container_width=True):
             navigate_to('profile')
+    with col_nav4:
+        if st.button("ℹ️ 关于", use_container_width=True):
+            navigate_to('about')
 
     st.markdown("---")
 

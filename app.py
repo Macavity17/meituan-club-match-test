@@ -5,6 +5,7 @@ from views import v2_swipe_cards
 from views import v3_club_detail
 from views import v4_home_dashboard
 from views import v5_profile
+from views import v6_about
 
 # 1. 全局配置
 st.set_page_config(
@@ -27,3 +28,5 @@ elif st.session_state.current_page == 'home_dashboard':
     v4_home_dashboard.render()
 elif st.session_state.current_page == 'profile':
     v5_profile.render()
+elif st.session_state.current_page == 'about': 
+    v6_about.render()
